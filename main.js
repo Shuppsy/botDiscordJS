@@ -1,7 +1,5 @@
 let { Client } = require('discord.js'),
   { TOKEN, PREFIX } = require('./config'),
-  userMsg = 'ping',
-  finalmsg = userMsg.toLowerCase(),
   client = new Client({ disableEveryone: true });
 
 client.on('ready', () => {
@@ -9,10 +7,13 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  //bk
-  if (msg.content.startsWith(`${PREFIX}ping`)) msg.reply('Pong!');
-  if (msg.content.startsWith(`${PREFIX}pong`)) msg.reply('Ping!');
+  if (msg.author.bot) return;
+  let args = msg.content.split(/ +/g),
+    cmd = args.shift().toLowerCase();
 
+  if (cmd === `${PREFIX}ping`) msg.channel.send('Pong !');
+  if (cmd === `${PREFIX}pong`) msg.channel.send('Ping !');
+  if (cmd === `${PREFIX}lol`) msg.channel.send('b?lol !');
 });
 
 client.login(TOKEN);
